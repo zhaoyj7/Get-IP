@@ -15,7 +15,7 @@ Route::miss(function () {
     $result = [
         "status" => 404,
         "messages" => lang("route_not_found"),
-        "path" => $this->request->url(),
+        "path" => request()->url(),
     ];
     return json($result,404);
 });
