@@ -7,7 +7,7 @@ use think\facade\Lang;
  * @title api控制器
  * @desc api控制器
  * @author zhaoyj
- * @uses \app\controller\ApiController
+ * @uses app\controller\ApiController
  */
 class ApiController extends BaseController
 {
