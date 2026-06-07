@@ -3,6 +3,12 @@ namespace app\controller;
 use app\service\IPRegionService;
 use think\facade\Lang;
 
+/**
+ * @title api控制器
+ * @desc api控制器
+ * @author zhaoyj
+ * @uses \app\controller\ApiController
+ */
 class ApiController extends BaseController
 {
     public function initialize()
