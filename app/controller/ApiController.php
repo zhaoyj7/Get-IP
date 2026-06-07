@@ -1,7 +1,7 @@
 <?php
 namespace app\controller;
+use app\service\IPRegionService;
 use think\facade\Lang;
-use app\model\IPRegionModel;
 
 class ApiController extends BaseController
 {
@@ -9,27 +9,7 @@ class ApiController extends BaseController
     {
         parent::initialize();
         Lang::load('../lang/zh-cn.php');
-        $this->IPRegionModel = new IPRegionModel();
-    }
-
-    /**
-     * @title 未命中路由处理
-     * @desc 未命中路由处理
-     * @author zhaoyj
-     * @version v1
-     * @return json
-     * @return int status - 状态码
-     * @return string messages - 提示信息
-     * @return string path - 访问路径
-     */
-    public function NotFound()
-    {
-        $result = [
-            "status" => 404,
-            "messages" => lang("route_not_found"),
-            "path" => $this->request->url(),
-        ];
-        return json($result,404);
+        $this->IPRegionService = new IPRegionService();
     }
     /**
      * @title 获取访问ip
@@ -45,16 +25,16 @@ class ApiController extends BaseController
      * @return info.Country - 国家
      * @return info.Province - 省
      * @return info.City - 市
+     * @noinspection PhpUndefinedClassInspection
      */
     public function GetIP()
     {
         $ip = $this->request->ip();
-        $Region = $this->IPRegionModel->GetRegion($ip);
         $result = [
             "status" => 200,
             "messages" => lang("success_message"),
             "ip" => $ip,
-            "info" => $Region,
+            "info" => $this->IPRegionService->GetInfo($ip),
             "time" => time(),
         ];
         //返回数据

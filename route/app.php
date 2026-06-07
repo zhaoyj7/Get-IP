@@ -11,7 +11,14 @@
 use think\facade\Route;
 
 Route::get('/', 'IndexController/index');
-Route::miss('ApiController/NotFound');
+Route::miss(function () {
+    $result = [
+        "status" => 404,
+        "messages" => lang("route_not_found"),
+        "path" => $this->request->url(),
+    ];
+    return json($result,404);
+});
 Route::group('api', function () {
     Route::group('v1', function () {
         Route::get('ip', 'ApiController/GetIP');
